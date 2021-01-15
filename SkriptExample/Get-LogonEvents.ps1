@@ -17,11 +17,14 @@ Get-LogonEvents.ps1 -EventId 4624 -Newest 2
 #>
 [cmdletBinding()]
 param(
+[ValidateSet(4624,4625,4634)]
 [Parameter(Mandatory=$true)]
 [int]$EventId,
 
+[ValidateRange(2,10)]
 [int]$Newest = 5,
 
+[ValidateScript({Test-Netconnection -ComputerName $_ -CommonTCPPort WINRM -InformationLevel Quiet})]
 [string]$Computername = "localhost"
 )
 
