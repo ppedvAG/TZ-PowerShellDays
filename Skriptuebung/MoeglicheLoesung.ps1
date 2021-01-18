@@ -12,14 +12,17 @@ param(
 
     [switch]$force
 )
+if($path.EndsWith("\") -eq $false)
+{
+    $path = $path + "\"
+}
+$TestFilespath = $path + "TestFiles"
 
-$path = "$path\TestFiles"
-
-if((Test-Path -Path $path))
+if((Test-Path -Path $TestFilespath))
 {
     if($force)
     {
-        Remove-Item -Path $path -Recurse -Force
+        Remove-Item -Path $TestFilespath -Recurse -Force
     }
     else
     {
@@ -29,15 +32,14 @@ if((Test-Path -Path $path))
 }
 else
 {
-    New-Item -Path $path -ItemType Directory
+    New-Item -Path $TestFilespath -ItemType Directory
 }
 
-$path = "$path\TestFiles"
 
 for($i = 1; $i -le $DirCount;$i++)
 {
     $DirNumber = "{0:D2}" -f $i #Zahlenformatieren mit führenden Nullen z.B. 2 -> 02
-    $dirpath = "$path\Ordner$DirNumber"
+    $dirpath = "$TestFilespath\Ordner$DirNumber"
     New-Item -Path $dirpath -ItemType Directory
 
     for($j = 1; $j -le $FileCount; $j ++)
