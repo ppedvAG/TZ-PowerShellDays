@@ -3,7 +3,7 @@
 [cmdletBinding()]
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateScript({Test-Path -Path $PSItem})]
+    [ValidateScript({Test-Path -Path $PSItem})] #Root Verzeichnis muss vorhanden sein
     [string]$path,
 
     [ValidateRange(1,99)]
